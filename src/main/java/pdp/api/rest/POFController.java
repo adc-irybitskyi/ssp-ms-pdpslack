@@ -20,7 +20,7 @@ public class POFController {
 
 	@RequestMapping(value = {"/pof"}, method = RequestMethod.POST)
 	@ResponseBody
-	public String pofAction(@RequestBody String body) {
+	public String pofAction(@RequestBody Object body) {
 		LOGGER.error("pofAction:" + body);
 		return "ok";
 	}
