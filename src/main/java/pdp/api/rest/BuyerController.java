@@ -32,8 +32,7 @@ public class BuyerController {
 
 	private String token;
 
-	@Autowired
-	private RestTemplate restTemplate;
+	private RestTemplate restTemplate = new RestTemplate();
 
 	@Autowired
 	private ObjectMapper objectMapper;
