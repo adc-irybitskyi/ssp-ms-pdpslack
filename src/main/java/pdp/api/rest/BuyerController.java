@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller("/buyer")
+@Controller()
+@RequestMapping("/buyer")
 public class BuyerController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BuyerController.class);
 

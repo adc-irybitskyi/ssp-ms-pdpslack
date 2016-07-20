@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller("/action")
+@Controller
+@RequestMapping("/action")
 class ActionController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ActionController.class);
 
@@ -26,7 +27,7 @@ class ActionController {
 	}
 
 	//https://api.slack.com/apps/A1T3W5N3T/interactive-messages
-	@RequestMapping(value = {"pof"},  method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE )
+	@RequestMapping(value = {"/pof"},  method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE )
 	@ResponseBody
 	String pofAction(@RequestBody final MultiValueMap<String, String > formVars) {
 		String payload = formVars.getFirst("payload");
