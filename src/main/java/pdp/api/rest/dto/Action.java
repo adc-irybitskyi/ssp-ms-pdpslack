@@ -9,6 +9,9 @@ public class Action {
 	private String type = "button";
 	private String value;
 
+	public Action() {
+	}
+
 	public Action(String name, String text, String type, String value) {
 		this.name = name;
 		this.text = text;

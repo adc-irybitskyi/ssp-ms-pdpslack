@@ -14,6 +14,9 @@ public class Attachment {
 
 	private String fallback;
 
+	public Attachment() {
+	}
+
 	public Attachment(String text, String callbackId, String fallback, List<Action> actions) {
 		this.text = text;
 		this.callbackId = callbackId;
