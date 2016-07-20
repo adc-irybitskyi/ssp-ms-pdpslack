@@ -57,9 +57,4 @@ class ActionController {
 	}
 
 	private Function<ActionResponse, Boolean> isApproved = x -> x.getActions().stream().filter(a -> "approve".equals(a.getValue())).findAny().isPresent();
-
-	public static void main(String[] args) throws Exception {
-		String payload = "{\"actions\":[{\"name\":\"approve\",\"value\":\"approve\"}],\"callback_id\":\"pof\",\"team\":{\"id\":\"T1Q7NUZUM\",\"domain\":\"pdpslack\"},\"channel\":{\"id\":\"C1QJB8QMS\",\"name\":\"11\"},\"user\":{\"id\":\"U1Q8005KL\",\"name\":\"yury\"},\"action_ts\":\"1469046981.756851\",\"message_ts\":\"1469046975.000004\",\"attachment_id\":\"1\",\"token\":\"hPW7iJhJ96foXiYINFoMIs6Z\",\"original_message\":{\"type\":\"message\",\"user\":\"U1Q8005KL\",\"text\":\"Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'\",\"bot_id\":\"B1TG6L4U8\",\"attachments\":[{\"callback_id\":\"pof\",\"fallback\":\"You are unable to approve Proof Of Funds\",\"text\":\"Please approve Proof Of Funds Document <http:\\/\\/buyer1-pof.box.com>\",\"id\":1,\"actions\":[{\"id\":\"1\",\"name\":\"approve\",\"text\":\"Approve\",\"type\":\"button\",\"value\":\"approve\",\"style\":\"\"},{\"id\":\"2\",\"name\":\"decline\",\"text\":\"Decline\",\"type\":\"button\",\"value\":\"decline\",\"style\":\"\",\"confirm\":{\"text\":\"Provided Proof Of Funds Documents are invalid?\",\"title\":\"Are you sure?\",\"ok_text\":\"Yes\",\"dismiss_text\":\"No\"}}]}],\"ts\":\"1469046975.000004\"},\"response_url\":\"https:\\/\\/hooks.slack.com\\/actions\\/T1Q7NUZUM\\/61668710642\\/Uoaur3cKibnKffezoDw8oxvk\"}";
-		System.out.println(new ObjectMapper().readValue(payload, ActionResponse.class));
-	}
 }
