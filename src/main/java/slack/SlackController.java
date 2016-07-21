@@ -3,7 +3,6 @@ package slack;
 import javax.validation.Valid;
 import javax.xml.ws.Response;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,14 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import static pdp.api.rest.Token.TOKEN;
 
 @Controller
-@EnableAutoConfiguration
-@RestController
 @RequestMapping(value = "/slack")
 public class SlackController {
 
