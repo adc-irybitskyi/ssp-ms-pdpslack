@@ -33,13 +33,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static pdp.api.rest.Token.TOKEN;
+
 @Controller() @RequestMapping("/buyer") public class BuyerController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BuyerController.class);
 	private static final String SLACK_API_URL = "https://slack.com/api/";
 
 	private Map<String, Boolean> approvedMap = new HashMap<>();
 
-	private String token = "xoxp-58260985973-58272005666-61700213125-fbebc934" + 9 + "d";
+	private String token = TOKEN;
 
 	private String incomingHookUrl = "https://hooks.slack.com/services/T1Q7NUZUM/B1U0W997U/XqDVY82OUFMgSMGKxpVXaP" + "sZ";
 

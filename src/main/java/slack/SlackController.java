@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import static pdp.api.rest.Token.TOKEN;
+
 @Controller
 @EnableAutoConfiguration
 @RestController
 @RequestMapping(value = "/slack")
 public class SlackController {
 
-	private String token = "xoxp-58344048966-58352360517-60239542945-38f876ae27";
+	private String token = TOKEN;
 	RestTemplate restTemplate = new RestTemplate();
 
 	@RequestMapping(value = "/channel/archive", method = RequestMethod.POST, consumes = { "application/json" })
