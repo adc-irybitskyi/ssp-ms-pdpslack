@@ -102,6 +102,7 @@ import java.util.Map;
 	}
 
 	private String toAttachment() {
+/*
 		try {
 			return objectMapper.writeValueAsString(new AttachmentBuilder().setText("Please approve Proof Of Funds Document http://buyer1-pof.box.com")//TODO: Fix it
 					.setFallback("You are unable to approve Proof Of Funds").setCallbackId("pof")
@@ -110,6 +111,8 @@ import java.util.Map;
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException("Can't create new attachment json", e);
 		}
+*/
+		return "{\"text\":\"Please approve Proof Of Funds Document http://buyer1-pof.box.com\",\"fallback\":\"You are unable to approve Proof Of Funds\",\"callback_id\":\"pof\",\"actions\":[{\"name\":\"approve\",\"text\":\"Approve\",\"type\":\"button\",\"value\":\"approve\"}]}";
 	}
 	//
 	//	public static void main(String[] args) throws Exception{
