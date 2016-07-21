@@ -30,7 +30,7 @@ public class BuyerController {
 
 	private Map<String, Boolean> approvedMap = new HashMap<>();
 
-	private String token;
+	private String token = "xoxp-58260985973-58272005666-61700213125-fbebc934" + 9 + "d";
 
 	private RestTemplate restTemplate = new RestTemplate();
 
@@ -44,12 +44,18 @@ public class BuyerController {
 	}
 
 	//https://api.slack.com/docs/slack-button
-	//https://slack.com/oauth/pick_reflow?scope=incoming-webhook%2Ccommands%2Cbot&client_id=58260985973.61132192129&team=T1Q7NUZUM
-	@RequestMapping(value = {"/token"},  method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE )
+	//https://slack.com/oauth/pick_reflow?scope=incoming-webhook%2Ccommands%2Cbot,chat:write:user&client_id=58260985973.61132192129&team=T1Q7NUZUM
+	@RequestMapping(value = {"/token"},  method = RequestMethod.POST)
 	@ResponseBody
 	String setToken(@RequestBody String token) {
 		LOGGER.info("setToken:" + token);
 		this.token = token;
+		return token;
+	}
+
+	@RequestMapping(value = {"/token"},  method = RequestMethod.GET)
+	@ResponseBody
+	String getToken() {
 		return token;
 	}
 
@@ -58,7 +64,6 @@ public class BuyerController {
 	String buyerSendPof(@RequestBody String body) {
 		LOGGER.info("buyerSendPof body:" + body);
 		//chat.postMessage
-		// ?token=xoxp-58260985973-58272005666-61562401281-54e3b07cee
 		// &channel=11
 		// &text=Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'
 		// &attachments=[
