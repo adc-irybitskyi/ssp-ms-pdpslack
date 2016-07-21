@@ -39,6 +39,10 @@ class ActionController {
 	@ResponseBody
 	String pofAction(@RequestBody final MultiValueMap<String, String > formVars) {
 		String payload = formVars.getFirst("payload");
+		if (payload == null){
+			LOGGER.error("!!!! pofAction payload is empty");
+			return "payload is empty";
+		}
 		LOGGER.info("pofAction payload:" + payload);
 		ActionResponse response;
 		try {
