@@ -82,11 +82,11 @@ import java.util.Map;
 
 		//restTemplate.getForObject(url, Void.class);
 
-		try {
-			url = URLDecoder.decode(url, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("url decoding", e);
-		}
+//		try {
+//			url = URLDecoder.decode(url, "UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			throw new RuntimeException("url decoding", e);
+//		}
 
 		//		ResponseEntity<GenericResponse> result = restTemplate.exchange(sb.toString(),
 		//				HttpMethod.GET,
