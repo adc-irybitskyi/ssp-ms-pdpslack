@@ -111,8 +111,9 @@ import java.util.Map;
 	}
 */
 
-	@RequestMapping(value = { "/pof" }, method = RequestMethod.POST) @ResponseBody String buyerSendPof(@RequestBody String body) {
-		LOGGER.info("buyerSendPof body:" + body);
+	@RequestMapping(value = { "/pof" }, method = RequestMethod.POST)
+	@ResponseBody
+	String buyerSendPof() {
 		/*TODO:
 		 "confirm": {
               "text": "Provided Proof Of Funds Documents are invalid?",
