@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pdp.api.rest.dto.ActionBuilder;
 import pdp.api.rest.dto.AttachmentBuilder;
 import pdp.api.rest.dto.GenericResponse;
+import pdp.api.rest.dto.Message;
+import pdp.api.rest.dto.MessageBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -34,6 +38,8 @@ import java.util.Map;
 	private Map<String, Boolean> approvedMap = new HashMap<>();
 
 	private String token = "xoxp-58260985973-58272005666-61700213125-fbebc934" + 9 + "d";
+
+	private String incomingHookUrl = "https://hooks.slack.com/services/T1Q7NUZUM/B1U0W997U/XqDVY82OUFMgSMGKxpVXaP" + "sZ";
 
 	private RestTemplate restTemplate = new RestTemplate();
 
@@ -55,6 +61,7 @@ import java.util.Map;
 		return token;
 	}
 
+/*
 	@RequestMapping(value = { "/pof" }, method = RequestMethod.POST) @ResponseBody String buyerSendPof(@RequestBody String body) {
 		LOGGER.info("buyerSendPof body:" + body);
 		//chat.postMessage
@@ -99,6 +106,42 @@ import java.util.Map;
 		LOGGER.info("buyerSendPof url: " + sb.toString());
 		LOGGER.info("buyerSendPof result2: " + result);
 		return "ok";
+	}
+*/
+
+	@RequestMapping(value = { "/pof" }, method = RequestMethod.POST) @ResponseBody String buyerSendPof(@RequestBody String body) {
+		LOGGER.info("buyerSendPof body:" + body);
+/*
+  "channel": "#11",
+  "username": "mlhbot",
+  "text": "Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'",
+  "icon_emoji": ":ghost:",
+
+ */
+		ResponseEntity<String> result = restTemplate.exchange(incomingHookUrl,
+				HttpMethod.POST,
+				toEntity(new MessageBuilder()
+						.setChannel("#11")
+						.setText("Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'")
+						.setUsername("mlhnot")
+						//TODO: Add Attachments
+						.createMessage()),
+				String.class);
+		LOGGER.info("buyerSendPof result: " + result.getBody());
+		return "ok";
+	}
+
+	private <T> HttpEntity toEntity(T contents) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		String str;
+		try {
+			str = objectMapper.writeValueAsString(contents);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException("toEntity", e);
+		}
+		return new HttpEntity(str, headers);
+
 	}
 
 	private String toAttachment() {
