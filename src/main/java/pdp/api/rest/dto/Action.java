@@ -12,10 +12,9 @@ public class Action {
 	public Action() {
 	}
 
-	public Action(String name, String text, String type, String value) {
+	public Action(String name, String text, String value) {
 		this.name = name;
 		this.text = text;
-		this.type = type;
 		this.value = value;
 	}
 
