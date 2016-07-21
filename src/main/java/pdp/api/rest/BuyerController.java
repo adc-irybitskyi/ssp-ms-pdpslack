@@ -93,8 +93,7 @@ public class BuyerController {
 
 	private String toAttachment() {
 		try {
-			//TODO: use autowired objectMapper field
-			return new ObjectMapper().writeValueAsString(
+			return objectMapper.writeValueAsString(
 					new AttachmentBuilder()
 							.setText("Please approve Proof Of Funds Document http://buyer1-pof.box.com")//TODO: Fix it
 							.setFallback("You are unable to approve Proof Of Funds")
