@@ -81,6 +81,7 @@ public class BuyerController {
 				HttpMethod.GET,
 				null,
 				GenericResponse.class);
+		LOGGER.info("buyerSendPof url: " + sb.toString());
 		LOGGER.info("buyerSendPof result: " + result.getBody());
 		return "ok";
 	}
