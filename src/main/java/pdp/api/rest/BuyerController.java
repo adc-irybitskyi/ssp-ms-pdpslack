@@ -78,10 +78,14 @@ public class BuyerController {
 				.append("&channel=" + "11")
 				.append("&text=" + "Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'")
 				.append("&attachments=[" + toAttachment() + "]");
-		ResponseEntity<GenericResponse> result = restTemplate.exchange(sb.toString(),
+//		ResponseEntity<GenericResponse> result = restTemplate.exchange(sb.toString(),
+//				HttpMethod.GET,
+//				null,
+//				GenericResponse.class);
+		ResponseEntity<String> result = restTemplate.exchange(sb.toString(),
 				HttpMethod.GET,
 				null,
-				GenericResponse.class);
+				String.class);
 		LOGGER.info("buyerSendPof url: " + sb.toString());
 		LOGGER.info("buyerSendPof result: " + result.getBody());
 		return "ok";
