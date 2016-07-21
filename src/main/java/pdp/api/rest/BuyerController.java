@@ -111,20 +111,16 @@ import java.util.Map;
 
 	@RequestMapping(value = { "/pof" }, method = RequestMethod.POST) @ResponseBody String buyerSendPof(@RequestBody String body) {
 		LOGGER.info("buyerSendPof body:" + body);
-/*
-  "channel": "#11",
-  "username": "mlhbot",
-  "text": "Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'",
-  "icon_emoji": ":ghost:",
-
- */
 		ResponseEntity<String> result = restTemplate.exchange(incomingHookUrl,
 				HttpMethod.POST,
 				toEntity(new MessageBuilder()
 						.setChannel("#11")
 						.setText("Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'")
 						.setUsername("mlhnot")
-						//TODO: Add Attachments
+						.setAttachments(Collections.singletonList(new AttachmentBuilder().setText("Please approve Proof Of Funds Document http://buyer1-pof.box.com")//TODO: Fix it
+								.setFallback("You are unable to approve Proof Of Funds").setCallbackId("pof")
+								.setActions(Collections.singletonList(new ActionBuilder().setName("approve").setText("Approve").setValue("approve").createAction()))
+								.createAttachment()))
 						.createMessage()),
 				String.class);
 		LOGGER.info("buyerSendPof result: " + result.getBody());

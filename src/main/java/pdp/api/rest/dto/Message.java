@@ -2,11 +2,14 @@ package pdp.api.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
 	private String text;
 	private String channel;
 	private String username;
+	private List<Attachment> attachments;
 
 	public Message() {
 	}
@@ -39,5 +42,13 @@ public class Message {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
 	}
 }
