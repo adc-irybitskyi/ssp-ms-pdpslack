@@ -80,13 +80,15 @@ import java.util.Map;
 		String url = builder.build().toUri().toString();
 		LOGGER.info("Composed before decode: " + url);
 
+
 		//restTemplate.getForObject(url, Void.class);
 
-//		try {
-//			url = URLDecoder.decode(url, "UTF-8");
-//		} catch (UnsupportedEncodingException e) {
-//			throw new RuntimeException("url decoding", e);
-//		}
+		try {
+			url = URLDecoder.decode(url, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("url decoding", e);
+		}
+		LOGGER.info("Composed after decode: " + url);
 
 		//		ResponseEntity<GenericResponse> result = restTemplate.exchange(sb.toString(),
 		//				HttpMethod.GET,
