@@ -71,6 +71,7 @@ public class BuyerController {
 		// "fallback":"You are unable to approve Proof Of Funds",
 		// "callback_id":"pof",
 		// "actions":[{"name":"approve","text":"Approve","type":"button","value":"approve"},{"name":"decline","text":"Decline","type":"button","value":"decline","confirm":{"title":"Are you sure?","text":"Provided Proof Of Funds Documents are invalid?","ok_text":"Yes","dismiss_text":"No"}}]}]
+
 		StringBuilder sb = new StringBuilder(SLACK_API_URL)
 				.append("chat.postMessage")
 				.append("?token=" + token)

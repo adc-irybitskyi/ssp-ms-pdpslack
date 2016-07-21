@@ -2,10 +2,12 @@ package pdp.api.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonPropertyOrder({ "text", "fallback", "callback_id", "actions" })
 public class Attachment {
 	private String text;
 
@@ -13,6 +15,8 @@ public class Attachment {
 	private String callbackId;
 
 	private String fallback;
+
+	private List<Action> actions;
 
 	public Attachment() {
 	}
@@ -23,8 +27,6 @@ public class Attachment {
 		this.fallback = fallback;
 		this.actions = actions;
 	}
-
-	private List<Action> actions;
 
 	public String getText() {
 		return text;
