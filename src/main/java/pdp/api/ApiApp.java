@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"pdp.api"})
+@ComponentScan(basePackages = { "pdp.api,slack" })
 public class ApiApp {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ApiApp.class, args);
