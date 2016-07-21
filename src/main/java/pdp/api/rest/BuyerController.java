@@ -95,7 +95,7 @@ import java.util.Map;
 //		ResponseEntity<String> result = restTemplate.exchange(sb.toString(), HttpMethod.GET, null, String.class);
 		String result = restTemplate.getForObject(url, String.class);
 		LOGGER.info("buyerSendPof url: " + sb.toString());
-		LOGGER.info("buyerSendPof result: " + result);
+		LOGGER.info("buyerSendPof result2: " + result);
 		return "ok";
 	}
 
