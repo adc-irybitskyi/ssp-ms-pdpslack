@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import pdp.api.rest.dto.Action;
 import pdp.api.rest.dto.ActionBuilder;
 import pdp.api.rest.dto.AttachmentBuilder;
 import pdp.api.rest.dto.GenericResponse;
@@ -27,6 +28,7 @@ import pdp.api.rest.dto.MessageBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,6 +113,14 @@ import java.util.Map;
 
 	@RequestMapping(value = { "/pof" }, method = RequestMethod.POST) @ResponseBody String buyerSendPof(@RequestBody String body) {
 		LOGGER.info("buyerSendPof body:" + body);
+		/*TODO:
+		 "confirm": {
+              "text": "Provided Proof Of Funds Documents are invalid?",
+              "title": "Are you sure?",
+              "ok_text": "Yes",
+              "dismiss_text": "No"
+		 */
+
 		ResponseEntity<String> result = restTemplate.exchange(incomingHookUrl,
 				HttpMethod.POST,
 				toEntity(new MessageBuilder()
@@ -119,7 +129,17 @@ import java.util.Map;
 						.setUsername("mlhnot")
 						.setAttachments(Collections.singletonList(new AttachmentBuilder().setText("Please approve Proof Of Funds Document http://buyer1-pof.box.com")//TODO: Fix it
 								.setFallback("You are unable to approve Proof Of Funds").setCallbackId("pof")
-								.setActions(Collections.singletonList(new ActionBuilder().setName("approve").setText("Approve").setValue("approve").createAction()))
+								.setActions(Arrays.asList(
+										new ActionBuilder()
+											.setName("approve")
+											.setText("Approve")
+											.setValue("approve")
+											.createAction(),
+										new ActionBuilder()
+											.setName("decline")
+											.setText("Decline")
+											.setValue("decline")
+											.createAction()))
 								.createAttachment()))
 						.createMessage()),
 				String.class);
@@ -139,22 +159,4 @@ import java.util.Map;
 		return new HttpEntity(str, headers);
 
 	}
-
-	private String toAttachment() {
-/*
-		try {
-			return objectMapper.writeValueAsString(new AttachmentBuilder().setText("Please approve Proof Of Funds Document http://buyer1-pof.box.com")//TODO: Fix it
-					.setFallback("You are unable to approve Proof Of Funds").setCallbackId("pof")
-					.setActions(Collections.singletonList(new ActionBuilder().setName("approve").setText("Approve").setValue("approve").createAction()))
-					.createAttachment());//TODO: Add Decline button
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException("Can't create new attachment json", e);
-		}
-*/
-		return "{\"text\":\"Please approve Proof Of Funds Document http://buyer1-pof.box.com\",\"fallback\":\"You are unable to approve Proof Of Funds\",\"callback_id\":\"pof\",\"actions\":[{\"name\":\"approve\",\"text\":\"Approve\",\"type\":\"button\",\"value\":\"approve\"}]}";
-	}
-	//
-	//	public static void main(String[] args) throws Exception{
-	//		System.out.println(new BuyerController().toAttachment());
-	//	}
 }
