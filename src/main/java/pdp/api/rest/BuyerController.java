@@ -97,7 +97,8 @@ public class BuyerController {
 		 }
 		 LOGGER.info("Composed after decode: " + url);
 
-		 String result = restTemplate.getForObject(url, String.class);
+//		 String result = restTemplate.getForObject(url, String.class);
+		 String result = restTemplate.getForObject("https://slack.com/api/chat.postMessage?token=xoxp-58260985973-58272005666-61700213125-fbebc9349d&channel=11&text=Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'&attachments=[{\"text\":\"Please approve Proof Of Funds Document http://buyer1-pof.box.com\",\"fallback\":\"You are unable to approve Proof Of Funds\",\"callback_id\":\"pof\",\"actions\":[{\"name\":\"approve\",\"text\":\"Approve\",\"type\":\"button\",\"value\":\"approve\"}]}]", String.class);
 		 LOGGER.info("buyerSendPof2 url: " + url);
 		 LOGGER.info("buyerSendPof2 result2: " + result);
 		 return "ok";
