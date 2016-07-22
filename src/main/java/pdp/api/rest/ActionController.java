@@ -71,7 +71,7 @@ class ActionController {
 		if (isPOF.apply(action)) {
 			return "Proof Of Funds document was uploaded.";
 		} else {
-			return "Ohter document was uploaded.";
+			return "Other document was uploaded.";
 		}
 	}
 
