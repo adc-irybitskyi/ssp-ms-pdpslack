@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -118,11 +119,11 @@ public class BuyerController {
 		return "ok";
 	}
 
-	@RequestMapping(value = { "/pof/approve" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/{channel}/pof/approve" }, method = RequestMethod.POST)
 	@ResponseBody
-	String buyerApprovePof(String channel) {
+	String buyerApprovePof(@PathVariable() String channel) {
 		ResponseEntity<String> result = restTemplate.exchange(incomingHookUrl, HttpMethod.POST,
-				toEntity(new MessageBuilder().setChannel(channel)// TODO: use it
+				toEntity(new MessageBuilder().setChannel(channel)
 						.setText("Please Approve Proof Of Funds Document").setUsername("mlhbot")
 						.setAttachments(Collections.singletonList(new AttachmentBuilder().setText("Please approve Proof Of Funds Document")// TODO: Add link to approved document
 								.setFallback("You are unable to approve Proof Of Funds").setCallbackId("approve-pof")
