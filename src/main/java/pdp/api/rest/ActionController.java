@@ -77,21 +77,20 @@ class ActionController {
 
 	private String approvePOF(ActionResponse action) {
 		if (isApproved.apply(action)) {
-			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
-			return "Buyer's Proof Of Funds is approved. Now he's ready to make an offer.";
+			return "Buyer's Proof Of Funds is approved.";
 		} else {
 			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
-			return "Proof Of Funds is declined. Buyer should provide new Proof of Funds documents.";
+			return "Proof Of Funds is declined.";
 		}
 	}
 
 	private String finalApprove(ActionResponse action) {
 		if (isApproved.apply(action)) {
 			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
-			return "Final approved. Now he's ready to make an offer.";
+			return "Buyer is approved.";
 		} else {
 			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
-			return "Declined. Buyer can not make offer.";
+			return "Buyer registration is declined";
 		}
 
 	}
