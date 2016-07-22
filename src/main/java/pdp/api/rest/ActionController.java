@@ -54,12 +54,25 @@ class ActionController {
 		}
 		LOGGER.info("pofAction response:" + response);
 		switch (response.getCallbackId()) {
+		case "document-type":
+			return documentType(response);
 		case "approve-pof":
 			return approvePOF(response);
 		case "final-approve":
 			return finalApprove(response);
 		}
 		return "Unknown callback_id: " + response.getCallbackId();
+	}
+
+
+	private Function<ActionResponse, Boolean> isPOF = x -> x.getActions().stream().filter(a -> "pof".equals(a.getValue())).findAny().isPresent();
+
+	private String documentType(ActionResponse action) {
+		if (isPOF.apply(action)) {
+			return "Proof Of Funds document was uploaded.";
+		} else {
+			return "Ohter document was uploaded.";
+		}
 	}
 
 	private String approvePOF(ActionResponse action) {
