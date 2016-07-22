@@ -45,6 +45,7 @@ public class BuyerController {
 	private String token = TOKEN;
 
 	private String incomingHookUrl = "https://hooks.slack.com/services/T1Q7NUZUM/B1U0W997U/XqDVY82OUFMgSMGKxpVXaP" + "sZ";
+						       //	  "https://hooks.slack.com/services/T1Q7NUZUM/B1UD6P7V5/e1tLYmKNr1msg8vz0qHkVK" + "4i"
 
 	private RestTemplate restTemplate = new RestTemplate();
 
@@ -97,10 +98,7 @@ public class BuyerController {
 		 }
 		 LOGGER.info("Composed after decode: " + url);
 
-//		 String result = restTemplate.getForObject(url, String.class);
-//		 String str = "https://slack.com/api/chat.postMessage?token=xoxp-58260985973-58272005666-61700213125-fbebc9349d&channel=11&text=Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'&attachments=[{\"text\":\"Please approve Proof Of Funds Document http://buyer1-pof.box.com\",\"fallback\":\"You are unable to approve Proof Of Funds\",\"callback_id\":\"pof\",\"actions\":[{\"name\":\"approve\",\"text\":\"Approve\",\"type\":\"button\",\"value\":\"approve\"}]}]";
-		 String str = "https://slack.com/api/chat.postMessage?token=xoxp-58260985973-58272005666-61700213125-fbebc9349d&channel=11&text=Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'&attachments=\\u005B{\"text\":\"Please approve Proof Of Funds Document http://buyer1-pof.box.com\",\"fallback\":\"You are unable to approve Proof Of Funds\",\"callback_id\":\"pof\",\"actions\":[{\"name\":\"approve\",\"text\":\"Approve\",\"type\":\"button\",\"value\":\"approve\"}\\u005D}]";
-		 String result = restTemplate.getForObject(str, String.class);
+		 String result = restTemplate.getForObject(url, String.class);
 		 LOGGER.info("buyerSendPof2 url: " + url);
 		 LOGGER.info("buyerSendPof2 result2: " + result);
 		 return "ok";
