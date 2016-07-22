@@ -115,6 +115,8 @@ import static pdp.api.rest.Token.TOKEN;
 
 	@RequestMapping(value = { "/pof" }, method = RequestMethod.POST)
 	@ResponseBody
+	@Deprecated
+	//TODO: delete it
 	String buyerSendPof() {
 		/*TODO:
 		 "confirm": {
@@ -129,7 +131,7 @@ import static pdp.api.rest.Token.TOKEN;
 				toEntity(new MessageBuilder()
 						.setChannel("#11")
 						.setText("Buyer uploaded Proof Of Funds Document with comments 'Send you one billion saving account statement'")
-						.setUsername("mlhnot")
+						.setUsername("mlhbot")
 						.setAttachments(Collections.singletonList(new AttachmentBuilder().setText("Please approve Proof Of Funds Document http://buyer1-pof.box.com")//TODO: Fix it
 								.setFallback("You are unable to approve Proof Of Funds").setCallbackId("pof")
 								.setActions(Arrays.asList(
@@ -150,7 +152,39 @@ import static pdp.api.rest.Token.TOKEN;
 		return "ok";
 	}
 
-	private <T> HttpEntity toEntity(T contents) {
+	@RequestMapping(value = { "/pof/approve" }, method = RequestMethod.POST)
+	@ResponseBody
+	String buyerApprovePof(String channel) {
+		ResponseEntity<String> result = restTemplate.exchange(incomingHookUrl,
+				HttpMethod.POST,
+				toEntity(new MessageBuilder()
+						.setChannel("#11")//TODO: use it
+						.setText("Please Proof Of Funds Document")
+						.setUsername("mlhbot")
+						.setAttachments(Collections.singletonList(
+								new AttachmentBuilder().
+										setText("Please approve Proof Of Funds Document")//TODO: Add link to approved document
+								.setFallback("You are unable to approve Proof Of Funds")
+								.setCallbackId("approve-pof")
+								.setActions(Arrays.asList(
+										new ActionBuilder()
+												.setName("approve")
+												.setText("Approve")
+												.setValue("approve")
+												.createAction(),
+										new ActionBuilder()
+												.setName("decline")
+												.setText("Decline")
+												.setValue("decline")
+												.createAction()))
+								.createAttachment()))
+						.createMessage()),
+				String.class);
+		LOGGER.info("buyerApprovePof result: " + result.getBody());
+		return "ok";
+	}
+
+		private <T> HttpEntity toEntity(T contents) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
 		String str;

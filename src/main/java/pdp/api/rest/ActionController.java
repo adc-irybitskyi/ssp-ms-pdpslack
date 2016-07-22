@@ -51,13 +51,32 @@ class ActionController {
 			throw new RuntimeException("json formatter", e);
 		}
 		LOGGER.info("pofAction response:" + response);
-		if (isApproved.apply(response)) {
+		switch (response.getCallbackId()) {
+			case "approve-pof": return approvePOF(response); break;
+			case "final-approve": return finalApprove(response); break;
+		}
+		return "Unknown callback_id: " + response.getCallbackId();
+	}
+
+	private String approvePOF(ActionResponse action) {
+		if (isApproved.apply(action)) {
 			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
 			return "Buyer's Proof Of Funds is approved. Now he's ready to make an offer.";
 		} else {
 			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
 			return "Proof Of Funds is declined. Buyer should provide new Proof of Funds documents.";
 		}
+	}
+
+	private String finalApprove(ActionResponse action) {
+		if (isApproved.apply(action)) {
+			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
+			return "Buyer's Proof Of Funds is approved. Now he's ready to make an offer.";
+		} else {
+			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
+			return "Proof Of Funds is declined. Buyer should provide new Proof of Funds documents.";
+		}
+
 	}
 
 	private Function<ActionResponse, Boolean> isApproved = x -> x.getActions().stream().filter(a -> "approve".equals(a.getValue())).findAny().isPresent();
