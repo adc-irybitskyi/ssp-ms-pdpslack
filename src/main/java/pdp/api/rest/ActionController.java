@@ -1,6 +1,10 @@
 package pdp.api.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pdp.api.rest.dto.ActionResponse;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import pdp.api.rest.dto.ActionResponse;
 
 @Controller
 @RequestMapping("/action")
@@ -34,12 +36,12 @@ class ActionController {
 		return "PDP Slack Action API";
 	}
 
-	//https://api.slack.com/apps/A1T3W5N3T/interactive-messages
-	@RequestMapping(value = {"/"},  method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE )
+	// https://api.slack.com/apps/A1T3W5N3T/interactive-messages
+	@RequestMapping(value = { "/" }, method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	@ResponseBody
-	String pofAction(@RequestBody final MultiValueMap<String, String > formVars) {
+	String pofAction(@RequestBody final MultiValueMap<String, String> formVars) {
 		String payload = formVars.getFirst("payload");
-		if (payload == null){
+		if (payload == null) {
 			LOGGER.error("!!!! pofAction payload is empty");
 			return "payload is empty";
 		}
@@ -52,29 +54,31 @@ class ActionController {
 		}
 		LOGGER.info("pofAction response:" + response);
 		switch (response.getCallbackId()) {
-			case "approve-pof": return approvePOF(response); break;
-			case "final-approve": return finalApprove(response); break;
+		case "approve-pof":
+			return approvePOF(response);
+		case "final-approve":
+			return finalApprove(response);
 		}
 		return "Unknown callback_id: " + response.getCallbackId();
 	}
 
 	private String approvePOF(ActionResponse action) {
 		if (isApproved.apply(action)) {
-			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
+			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
 			return "Buyer's Proof Of Funds is approved. Now he's ready to make an offer.";
 		} else {
-			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
+			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
 			return "Proof Of Funds is declined. Buyer should provide new Proof of Funds documents.";
 		}
 	}
 
 	private String finalApprove(ActionResponse action) {
 		if (isApproved.apply(action)) {
-			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
-			return "Buyer's Proof Of Funds is approved. Now he's ready to make an offer.";
+			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were approved. Now you’re ready to make an offer.'
+			return "Final approved. Now he's ready to make an offer.";
 		} else {
-			//TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
-			return "Proof Of Funds is declined. Buyer should provide new Proof of Funds documents.";
+			// TODO: send message to PDP Chat with message 'Your Proof Of Funds were declined. Please provide new Proof of Funds document(s).'
+			return "Declined. Buyer can not make offer.";
 		}
 
 	}
